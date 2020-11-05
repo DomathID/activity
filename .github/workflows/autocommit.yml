@@ -7,7 +7,7 @@ on:
       - master
       
   schedule:
-  - cron: "0 7,8,9,10,11 * * *"
+  - cron: "0 */3 * * *"
 
 
 jobs:
@@ -26,18 +26,18 @@ jobs:
           
       - name: Commit changes
         run: |
-          git config --local user.email "bangdompret@gmail.com"
+          git config --local user.email "domath69@gmail.com"
           git config --local user.name "DomathID"
           git add -A
           
-          arr[0]="feat: 😂 auto commit"
-          arr[1]="feat: 😱 auto commit"
-          arr[2]="feat: 👿 auto commit"
-          arr[3]="feat: 😎 auto commit"
-          arr[4]="feat: 🙏 auto commit"
-          arr[5]="feat: 🙈 auto commit"
-          arr[6]="feat: 🐐 auto commit"
-          arr[7]="feat: 🚀 auto commit"
+          arr[0]="feat: 🛌 auto commit"
+          arr[1]="feat: 🛀 auto commit"
+          arr[2]="feat: 🚶 auto commit"
+          arr[3]="feat: 💻 auto commit"
+          arr[4]="feat: ☕ auto commit"
+          arr[5]="feat: 🛀 auto commit"
+          arr[6]="feat: ☕ auto commit"
+          arr[7]="feat: 🛌 auto commit"
           
           rand=$[$RANDOM % ${#arr[@]}]
           
