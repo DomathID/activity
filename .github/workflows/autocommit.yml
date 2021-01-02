@@ -4,10 +4,10 @@ on:
 
   push:
     branches:
-      - master
+      - main
       
   schedule:
-  - cron: "*/7 * * * *"
+  - cron: "*/4 * * * *"
 
 
 jobs:
