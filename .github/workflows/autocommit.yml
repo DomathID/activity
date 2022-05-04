@@ -7,13 +7,13 @@ on:
       - master
       
   schedule:
-  - cron: "0 7,8,9,10,11 * * *"
+  - cron: "0 7,8,9,10,11 * * 1,2,3,4,5"
 
 jobs:
   auto_commit:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2      
+      - uses: actions/checkout@v3
         with:
          persist-credentials: false
          fetch-depth: 0
@@ -23,10 +23,13 @@ jobs:
           d=`date '+%Y-%m-%dT%H:%M:%SZ'`
           echo $d > LAST_UPDATED
           
+      - name: Trust my dir
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+
       - name: Commit changes
         run: |
-          git config --local user.email "bangdompret@gmail.com"
-          git config --local user.name "domathid"
+          git config --local user.email "domath69@gmail.com"
+          git config --local user.name "DomathID"
           git add -A
           
           arr[0]="feat: 😂 auto commit"
@@ -43,7 +46,7 @@ jobs:
           git commit -m "${arr[$rand]}"
           
       - name: GitHub Push
-        uses: ad-m/github-push-action@v0.5.0
+        uses: ad-m/github-push-action@master
         with:
           force: true
           directory: "."
