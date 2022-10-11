@@ -4,7 +4,5 @@
 - Silahkan Fork dan Sesuaikan Dengan Kehijauan Anda
 - Sumber : @Mazipan
 - Auto Commit:
-[![commit](https://github.com/DomathID/activity/workflows/badge.svg)](https://github.com/domathid)
-
-
+[![Auto commit](https://github.com/DomathID/activity/actions/workflows/autocommit.yml/badge.svg?branch=master)](https://github.com/DomathID/activity/actions/workflows/autocommit.yml)
 
