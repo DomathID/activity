@@ -1,4 +1,4 @@
-# Activity
+# Auto Commit for Activity
 - Mencegah Alasan Kenapa Rumput Tetangga Lebih Hijau 
 - Mari Menghijaukan Stats mu Dengan Ini
 - Silahkan Fork dan Sesuaikan Dengan Kehijauan Anda
