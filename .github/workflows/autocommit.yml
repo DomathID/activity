@@ -1,33 +1,53 @@
-name: Auto Commit
+name: Auto commit
 
 on:
+
+  push:
+    branches:
+      - master
+      
   schedule:
-    - cron: "0 2,4,7,8,9 * * *"
+  - cron: "0 2,4,7,8,9 * * *"
 
 jobs:
-  build:
+  auto_commit:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+        with:
+         persist-credentials: false
+         fetch-depth: 0
 
-      - name: Set Git Config
+      - name: Modify last update
         run: |
-          git config --global user.name "DomathID"
-          git config --global user.email "admin@yukinoshita.web.id"
-
-      - name: Update File
-        run: |
-          # Menghasilkan emotikon acak
-          emoticons=("😊" "🎉" "🌟" "🔥" "💫" "🌈")
-          random_emoticon=${emoticons[$RANDOM % ${#emoticons[@]}]}
+          d=`date '+%Y-%m-%dT%H:%M:%SZ'`
+          echo $d > LAST_UPDATED
           
-          # Mengubah file dengan emotikon acak
-          echo "$random_emoticon" >> file.txt
+      - name: Trust my dir
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
 
-      - name: Commit Changes
+      - name: Commit changes
         run: |
-          git add .
-          git commit -m "Auto commit: Update file with random emoticon"
-          git push
+          git config --local user.email "bangdompret@gmail.com"
+          git config --local user.name "domathid"
+          git add -A
+          
+          arr[0]="feat: 😂 auto commit"
+          arr[1]="feat: 😱 auto commit"
+          arr[2]="feat: 👿 auto commit"
+          arr[3]="feat: 💩 auto commit"
+          arr[4]="feat: 🙏 auto commit"
+          arr[5]="feat: 🙈 auto commit"
+          arr[6]="feat: 🐐 auto commit"
+          arr[7]="feat: 🚀 auto commit"
+          
+          rand=$[$RANDOM % ${#arr[@]}]
+          
+          git commit -m "${arr[$rand]}"
+          
+      - name: GitHub Push
+        uses: ad-m/github-push-action@master
+        with:
+          force: true
+          directory: "."
+          github_token: ${{ secrets.GITHUB_TOKEN }}
