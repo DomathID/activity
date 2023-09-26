@@ -2,7 +2,7 @@ name: Auto Commit
 
 on:
   schedule:
-    - cron: "0 0 * * *"
+    - cron: "0 2,4,7,8,9 * * *"
 
 jobs:
   build:
