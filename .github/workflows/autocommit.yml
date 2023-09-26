@@ -1,53 +1,33 @@
-name: Auto commit
+name: Auto Commit
 
 on:
-
-  push:
-    branches:
-      - master
-      
   schedule:
-  - cron: "0 2,4,7,8,9 * * *"
+    - cron: "0 0 * * *"
 
 jobs:
-  auto_commit:
+  build:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v3
-        with:
-         persist-credentials: false
-         fetch-depth: 0
+      - name: Checkout Repository
+        uses: actions/checkout@v2
 
-      - name: Modify last update
+      - name: Set Git Config
         run: |
-          d=`date '+%Y-%m-%dT%H:%M:%SZ'`
-          echo $d > LAST_UPDATED
-          
-      - name: Trust my dir
-        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          git config --global user.name "DomathID"
+          git config --global user.email "admin@yukinoshita.web.id"
 
-      - name: Commit changes
+      - name: Update File
         run: |
-          git config --local user.email "bangdompret@gmail.com"
-          git config --local user.name "domathid"
-          git add -A
+          # Menghasilkan emotikon acak
+          emoticons=("😊" "🎉" "🌟" "🔥" "💫" "🌈")
+          random_emoticon=${emoticons[$RANDOM % ${#emoticons[@]}]}
           
-          arr[0]="feat: 😂 auto commit"
-          arr[1]="feat: 😱 auto commit"
-          arr[2]="feat: 👿 auto commit"
-          arr[3]="feat: 💩 auto commit"
-          arr[4]="feat: 🙏 auto commit"
-          arr[5]="feat: 🙈 auto commit"
-          arr[6]="feat: 🐐 auto commit"
-          arr[7]="feat: 🚀 auto commit"
-          
-          rand=$[$RANDOM % ${#arr[@]}]
-          
-          git commit -m "${arr[$rand]}"
-          
-      - name: GitHub Push
-        uses: ad-m/github-push-action@master
-        with:
-          force: true
-          directory: "."
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          # Mengubah file dengan emotikon acak
+          echo "$random_emoticon" >> file.txt
+
+      - name: Commit Changes
+        run: |
+          git add .
+          git commit -m "Auto commit: Update file with random emoticon"
+          git push
